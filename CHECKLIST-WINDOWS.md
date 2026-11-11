@@ -10,7 +10,7 @@ Ci vogliono circa 20–30 minuti.
 
 ## Prima di cominciare
 
-- Ti serve: un PC con **Windows 10 o 11**, **After Effects 2024, 2025 o 2026** già aperto almeno una volta, **Claude Code** oppure **Claude Desktop**, e lo **zip scaricato dal sito** (dentro c'è `parlez-0.1.0.tgz`).
+- Ti serve: un PC con **Windows 10 o 11**, **After Effects 2024, 2025 o 2026** già aperto almeno una volta, **Claude Code** oppure **Claude Desktop**, e lo **zip scaricato dal sito** (dentro c'è `parlez-0.1.1.tgz`).
 - Lavora su una **copia** di un progetto, mai sul lavoro di un cliente.
 - **PowerShell** si apre dal menu Start: scrivi «PowerShell» e premi Invio. Ogni comando qui sotto va incollato lì (clic destro incolla).
 - Quando un percorso contiene spazi o `!` (per esempio `Parlez!.jsx`) è scritto tra virgolette `"…"`: lasciale, servono.
@@ -43,7 +43,7 @@ Per controllare che il file non sia stato cambiato:
 **Comando**
 
 ```powershell
-certutil -hashfile parlez-0.1.0.tgz SHA256
+certutil -hashfile parlez-0.1.1.tgz SHA256
 ```
 
 **Cosa devi vedere**: una lunga sequenza di lettere e numeri. Deve essere **uguale** a quella scritta nel `README.md` del sito di download (sezione «Scarica»).
@@ -52,19 +52,19 @@ certutil -hashfile parlez-0.1.0.tgz SHA256
 
 ## 3. Installare Parlez!
 
-Con PowerShell aperto nella cartella dove c'è `parlez-0.1.0.tgz`:
+Con PowerShell aperto nella cartella dove c'è `parlez-0.1.1.tgz`:
 
 **Comandi**
 
 ```powershell
-npm install -g ./parlez-0.1.0.tgz
+npm install -g ./parlez-0.1.1.tgz
 ```
 
 ```powershell
 npm list -g parlez
 ```
 
-**Cosa devi vedere**: dopo il primo comando qualcosa come `added 90 packages` (il numero può cambiare). Può comparire un avviso con `lefthook` o `install-scripts`: è innocuo. Il secondo comando deve mostrare una riga con `parlez@0.1.0`.
+**Cosa devi vedere**: dopo il primo comando qualcosa come `added 90 packages` (il numero può cambiare). Può comparire un avviso con `lefthook` o `install-scripts`: è innocuo. Il secondo comando deve mostrare una riga con `parlez@0.1.1`.
 
 Serve internet **solo adesso**, per scaricare due librerie. Dopo, Parlez! non si collega più a internet.
 
@@ -127,7 +127,12 @@ parlez doctor
 - `OK      After Effects 26.5: pannello Parlez! installato e aggiornato`
 - `OK      After Effects 26.5: la casella «Consenti agli script di scrivere file e accedere alla rete» è accesa`
 - `OK      After Effects acceso con l'agente: …`
-- `NOTA    … il pannello è su OFF …` (è normale: lo accendi al passo 7).
+- `NOTA    … il pannello è su OFF …` (è normale se non l'hai ancora acceso: lo accendi al passo 7);
+- `NOTA    collegamento: lo script di avvio è installato, quindi il server userà solo quello …`;
+- `NOTA    cassetta (…): C:\Users\<tu>\AppData\Local\Temp\mcp-aftereffects\runtime` — **copia questa riga**, serve per il rapporto;
+- in fondo, se è tutto a posto: `Tutto pronto.`
+
+Se hai installato anche vecchie versioni di After Effects, puoi vedere righe come `NOTA    After Effects 2023 trovato ma non supportato … Lo salto.`: sono normali.
 
 **Se non va**: manda tutto quello che `parlez doctor` ha scritto. Le righe più importanti per noi:
 
@@ -182,7 +187,7 @@ claude mcp list
 
 **Cosa devi vedere**: in Claude Desktop, nella lista degli strumenti (icona dei connettori), compare **parlez**.
 
-**Se non va**: manda il comando o il blocco che hai incollato e il messaggio di errore. Con Claude Desktop manda anche il file di log: `%APPDATA%\Claude\logs\mcp-server-parlez.log` (vedi «Dove sono i log»).
+**Se non va**: manda il comando o il blocco che hai incollato e il messaggio di errore. Con Claude Desktop manda anche il suo file di log (vedi «Dove sono i log»: c'è un comando che lo trova da solo).
 
 ## 9. Prima richiesta
 
@@ -219,6 +224,8 @@ Poi chiedi a Claude:
 **Se non va**: il messaggio del pannello o di Claude, e il percorso del progetto (puoi togliere i nomi dei clienti).
 
 ## 12. Un Ctrl+Z e una conferma
+
+Prima di cominciare, fai il punto di ripristino del passo 11: se qualcosa va storto, torni indietro da lì.
 
 Chiedi a Claude una piccola modifica sulla copia di prova, per esempio:
 
@@ -290,16 +297,18 @@ Dentro trovi:
 
 Altri due posti:
 
-- **Claude Desktop**: `%APPDATA%\Claude\logs\mcp-server-parlez.log`. Ci interessano le righe che iniziano con `[mcp-aftereffects]`.
+- **Claude Desktop**: il file si chiama `mcp-server-parlez.log`, ma la cartella dipende da come hai installato Claude Desktop (sul PC di prova è in `%LOCALAPPDATA%\Claude\Logs`). Non serve cercarlo a mano: il comando qui sotto lo trova da solo. Dentro ci interessano le righe che iniziano con `[mcp-aftereffects]`.
 - **Storico delle richieste** (lo stesso del bottone **Storico** del pannello): `%APPDATA%\Parlez\storico\`.
 
-Per metterli tutti insieme in un file `parlez-log.zip` sul Desktop:
+Per metterli tutti insieme in un file `parlez-log.zip` sul Desktop, incolla queste tre righe (insieme, poi Invio). Cercano da sole anche il log di Claude Desktop e saltano quello che non esiste:
 
 ```powershell
-Compress-Archive -Path "$env:TEMP\mcp-aftereffects","$env:APPDATA\Claude\logs\mcp-server-parlez.log","$env:APPDATA\Parlez\storico" -DestinationPath "$HOME\Desktop\parlez-log.zip" -Force
+$cose = @("$env:TEMP\mcp-aftereffects", "$env:APPDATA\Parlez\storico")
+$cose += Get-ChildItem -Path "$env:LOCALAPPDATA\Claude*","$env:LOCALAPPDATA\Packages\Claude_*","$env:APPDATA\Claude*" -Recurse -Filter "mcp-server-parlez*.log" -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName }
+Compress-Archive -Path ($cose | Where-Object { Test-Path $_ }) -DestinationPath "$HOME\Desktop\parlez-log.zip" -Force
 ```
 
-(Se uno dei file o delle cartelle non esiste, PowerShell lo dice: togli quel pezzo dal comando e rilancialo. Se il Desktop è dentro OneDrive, cambia `$HOME\Desktop` con il percorso del tuo Desktop.) Questi file contengono **i nomi dei progetti e delle composizioni** su cui hai lavorato, mai il contenuto del progetto: controlla che non ci siano nomi di clienti prima di mandarli.
+(Se il Desktop è dentro OneDrive, cambia `$HOME\Desktop` con il percorso del tuo Desktop.) Questi file contengono **i nomi dei progetti e delle composizioni** su cui hai lavorato, mai il contenuto del progetto: controlla che non ci siano nomi di clienti prima di mandarli.
 
 ## Modulo di segnalazione
 

@@ -1,10 +1,127 @@
+<a id="english"></a>
+
+# Parlez! for Adobe® After Effects® — Beta download
+
+**English** · [Italiano](#italiano)
+
+**Parlez!** lets **Claude work inside After Effects**. Tell Claude what you want in plain words ("animate this title with a soft bounce", "check this comp for problems"). Claude does it in the open project while you watch.
+
+- **Free.** Preview release (beta 0.1.1).
+- **You stay in control.** Before anything is deleted or overwritten, Claude has to ask you.
+- **Restore points.** Before risky work, a dated copy of the project can be saved.
+- **One undo.** Each Claude request is undone with a single Ctrl+Z (Cmd+Z on Mac).
+- **ON/OFF switch** in the "Parlez!" panel inside After Effects: when it is OFF, Claude is stopped. **No internet:** Parlez! only talks to After Effects, on your own computer.
+
+> [!IMPORTANT]
+> **Beta status, plainly.**
+> - **Tested:** Windows 10 with After Effects 2026 (26.5).
+> - **Written to work, but not tested yet:** macOS, After Effects 2024 and After Effects 2025.
+> - **Not working yet:** background rendering (aerender) started by the program.
+>
+> Use it on **a copy** of a project, never on a client's real work.
+>
+> Before using it, read the **[notices](AVVERTENZE.md#english)**: Parlez! is free and experimental, you use it at your own risk, and `parlez setup` asks you to accept them before installing.
+
+## Requirements
+
+- **After Effects 2024, 2025 or 2026**, on Windows or macOS
+- **Node.js 24 or newer** ([nodejs.org](https://nodejs.org), LTS). Check with `node --version`.
+- **Claude Code or Claude Desktop**
+
+The terminal is **PowerShell** on Windows (search the Start menu) and **Terminal** on Mac.
+
+## Download
+
+**[⬇ Download Parlez! beta (zip file)](https://github.com/AnotherPerspective/Parlez-download/releases/latest/download/Parlez-beta.zip)**
+
+The zip holds the package `parlez-0.1.1.tgz`, the two step-by-step guides (Windows and Mac, in Italian) and a `LEGGIMI.txt` file.
+
+**Checking the file (optional).** To make sure the file was not changed on the way, compare its fingerprint with this one:
+
+```text
+42a82d54ca51bbdf034526994f6cd44745d2015ad483c7cbe2c92e64d9337dd2
+```
+
+- Windows (PowerShell): `certutil -hashfile parlez-0.1.1.tgz SHA256`
+- Mac (Terminal): `shasum -a 256 parlez-0.1.1.tgz`
+
+## Install in three steps
+
+**1. Unzip.** Open a terminal **inside the unzipped folder**, the one that holds `parlez-0.1.1.tgz`.
+
+**2. Install the package.**
+
+```bash
+npm install -g ./parlez-0.1.1.tgz
+```
+
+Internet is needed **only now**, to download two libraries. After that Parlez! never connects to the internet.
+
+**3. Set up After Effects.**
+
+```bash
+parlez setup --lang en
+```
+
+It finds After Effects and installs the **startup script** (a small agent that stays inside After Effects and receives Claude's requests) and the **Parlez! panel**, only in your user's folders. At the end it prints the command that connects Claude.
+
+Then:
+
+- **turn on one checkbox by hand in After Effects** (no program can do it for you): **Edit → Preferences → Scripting & Expressions → "Allow Scripts to Write Files and Access Network"** → OK. On Mac: **After Effects → Settings → Scripting & Expressions**;
+- **restart After Effects**;
+- open **Window → Parlez!** and switch it **ON**;
+- check everything: `parlez doctor --lang en`. It **changes nothing**. No "TO DO" line means you are ready.
+
+The detailed step-by-step guides are in Italian: [CHECKLIST-WINDOWS.md](CHECKLIST-WINDOWS.md) · [CHECKLIST-MAC.md](CHECKLIST-MAC.md).
+
+## Connect to Claude
+
+**Claude Code:** paste the `claude mcp add …` line that `parlez setup` printed. Short form:
+
+```bash
+claude mcp add parlez -e AE_MCP_PULL_ONLY=1 -- parlez
+```
+
+**Claude Desktop:** `parlez setup` also prints a block to paste into Claude Desktop's configuration file (Settings → Developer → Edit Config) and tells you where. Then quit Claude Desktop completely and reopen it.
+
+First test, with After Effects open and the panel ON: "Using Parlez!, tell me the After Effects version."
+
+## What Claude sees
+
+What Claude reads from the project (names of comps and layers, text, file paths, frames) goes to the Claude service you use. For NDA work or unreleased client material, check your Claude plan's data terms first.
+
+## If something goes wrong
+
+Timeouts: is After Effects open, the panel ON, the scripting checkbox on (and the Preferences window closed with OK), and no dialog open (sometimes hidden behind the main window)? Then run `parlez doctor`. After an After Effects or Parlez! update, run `parlez setup` again.
+
+Still stuck? Write to **anthonyfesce@anotherperspectivepictures.com** with answers to the six questions in the Italian section below (remove client names and private paths): computer and versions; did the install work (paste `parlez doctor`); what you asked Claude; what happened vs. what you expected; panel state, undo and confirmation behaviour; usefulness from 1 to 5. "Everything works" is useful to know too.
+
+## Credits and trademarks
+
+Parlez! builds on work by others, released under the MIT License. Thank you.
+
+- **[mcp-aftereffects](https://github.com/kumoproductions/mcp-aftereffects)** by kumo.productions, Inc. — Copyright (c) 2026 kumo.productions, Inc. (MIT License). Parlez! is a fork of this project: the engine that talks to After Effects comes from here.
+- Further ideas and MIT-licensed code come from **After-Effects-mcp-pro** (Mohammad Malkawi) and **after-effects-mcp** (Ishant Kohar). Their copyright notices and the full license texts are inside the package, in `THIRD_PARTY_NOTICES.md`.
+
+**"Parlez! for Adobe® After Effects®".** Adobe and After Effects are trademarks of Adobe Inc. Parlez! is an independent project, not affiliated with, endorsed by or sponsored by Adobe.
+
+## License
+
+**Free of charge.** The package includes MIT-licensed components, with their notices. Parlez!'s own source code is published on GitHub under the MIT license: [github.com/AnotherPerspective/Parlez](https://github.com/AnotherPerspective/Parlez).
+
+© 2026 Another Perspective Pictures SRL, Milan, for the original parts of Parlez!. Third-party components remain with their respective authors, under their own licenses.
+
+---
+
+<a id="italiano"></a>
+
 # Parlez! per Adobe® After Effects® — Scarica la beta
 
-**Italiano** · [English](#english)
+[English](#english) · **Italiano**
 
 **Parlez!** fa lavorare **Claude dentro After Effects**. Scrivi a Claude cosa vuoi, in parole normali («anima questo titolo con un rimbalzo morbido», «controlla se in questa composizione c'è qualcosa che non va»). Lui lo fa nel progetto aperto, e tu guardi.
 
-- **Gratuito.** Versione di prova (beta 0.1.0).
+- **Gratuito.** Versione di prova (beta 0.1.1).
 - **Sotto il tuo controllo.** Prima di cancellare o sovrascrivere qualcosa, Claude deve chiederti il permesso.
 - **Punti di ripristino.** Prima di un lavoro rischioso si può salvare una copia del progetto.
 - **Un solo Ctrl+Z.** Ogni richiesta di Claude si annulla con un solo Ctrl+Z (Cmd+Z sul Mac).
@@ -17,6 +134,8 @@
 > - **Non ancora riuscito:** il render in sottofondo (aerender) lanciato dal programma.
 >
 > Usala su **una copia** di un progetto, mai sul lavoro vero di un cliente.
+>
+> Prima di usarla leggi le **[avvertenze](AVVERTENZE.md#italiano)**: Parlez! è gratuito e sperimentale, lo usi a tuo rischio, e `parlez setup` ti chiede di accettarle prima di installare.
 
 ## Cosa serve
 
@@ -30,29 +149,29 @@ Il terminale su Windows è **PowerShell** (cercalo nel menu Start). Sul Mac è *
 
 ## Scarica
 
-**[⬇ Scarica Parlez! beta (file zip)](https://github.com/AnotherPerspective/Parlez/releases/latest/download/Parlez-beta.zip)**
+**[⬇ Scarica Parlez! beta (file zip)](https://github.com/AnotherPerspective/Parlez-download/releases/latest/download/Parlez-beta.zip)**
 
-Dentro lo zip trovi il pacchetto `parlez-0.1.0.tgz`, le due guide passo passo (Windows e Mac) e un file `LEGGIMI.txt`.
+Dentro lo zip trovi il pacchetto `parlez-0.1.1.tgz`, le due guide passo passo (Windows e Mac) e un file `LEGGIMI.txt`.
 
 **Controllo del file (facoltativo).** Se vuoi essere sicuro che il file non sia stato cambiato, confronta la sua impronta con questa:
 
 ```text
-8687b74d67b123ff33d9f1b222fbe1e2a44543907e8c2b14a7965db189f44042
+42a82d54ca51bbdf034526994f6cd44745d2015ad483c7cbe2c92e64d9337dd2
 ```
 
-- Windows (PowerShell): `certutil -hashfile parlez-0.1.0.tgz SHA256`
-- Mac (Terminale): `shasum -a 256 parlez-0.1.0.tgz`
+- Windows (PowerShell): `certutil -hashfile parlez-0.1.1.tgz SHA256`
+- Mac (Terminale): `shasum -a 256 parlez-0.1.1.tgz`
 
 Le due sequenze di lettere e numeri devono essere uguali.
 
 ## Installa in tre passi
 
-**1. Scompatta lo zip.** Fai doppio clic sullo zip (Windows: «Estrai tutto…»). Apri il terminale **dentro la cartella scompattata**, quella dove c'è `parlez-0.1.0.tgz`. Su Windows: nella cartella, clic destro in uno spazio vuoto → «Apri nel Terminale» (o «Apri finestra PowerShell qui»).
+**1. Scompatta lo zip.** Fai doppio clic sullo zip (Windows: «Estrai tutto…»). Apri il terminale **dentro la cartella scompattata**, quella dove c'è `parlez-0.1.1.tgz`. Su Windows: nella cartella, clic destro in uno spazio vuoto → «Apri nel Terminale» (o «Apri finestra PowerShell qui»).
 
 **2. Installa il pacchetto.**
 
 ```bash
-npm install -g ./parlez-0.1.0.tgz
+npm install -g ./parlez-0.1.1.tgz
 ```
 
 Serve internet **solo in questo momento**, per scaricare due librerie. Dopo, Parlez! non si collega più a internet. Può comparire un avviso con `lefthook` o `install-scripts`: è innocuo.
@@ -147,119 +266,6 @@ Parlez! nasce dal lavoro di altri, pubblicato con licenza MIT. Li ringraziamo.
 
 ## Licenza
 
-**Gratuito.** Il pacchetto include componenti con licenza MIT, con le loro note di copyright. Il codice sorgente di Parlez! non è pubblicato in questa fase.
+**Gratuito.** Il pacchetto include componenti con licenza MIT, con le loro note di copyright. Il codice sorgente di Parlez! è pubblicato su GitHub, con licenza MIT: [github.com/AnotherPerspective/Parlez](https://github.com/AnotherPerspective/Parlez).
 
-© 2026 Another Perspective Pictures, Milano.
-
----
-
-<a id="english"></a>
-
-# Parlez! for Adobe® After Effects® — Beta download
-
-[Italiano](#parlez-per-adobe-after-effects--scarica-la-beta) · **English**
-
-**Parlez!** lets **Claude work inside After Effects**. Tell Claude what you want in plain words ("animate this title with a soft bounce", "check this comp for problems"). Claude does it in the open project while you watch.
-
-- **Free.** Preview release (beta 0.1.0).
-- **You stay in control.** Before anything is deleted or overwritten, Claude has to ask you.
-- **Restore points.** Before risky work, a dated copy of the project can be saved.
-- **One undo.** Each Claude request is undone with a single Ctrl+Z (Cmd+Z on Mac).
-- **ON/OFF switch** in the "Parlez!" panel inside After Effects: when it is OFF, Claude is stopped. **No internet:** Parlez! only talks to After Effects, on your own computer.
-
-> [!IMPORTANT]
-> **Beta status, plainly.**
-> - **Tested:** Windows 10 with After Effects 2026 (26.5).
-> - **Written to work, but not tested yet:** macOS, After Effects 2024 and After Effects 2025.
-> - **Not working yet:** background rendering (aerender) started by the program.
->
-> Use it on **a copy** of a project, never on a client's real work.
-
-## Requirements
-
-- **After Effects 2024, 2025 or 2026**, on Windows or macOS
-- **Node.js 24 or newer** ([nodejs.org](https://nodejs.org), LTS). Check with `node --version`.
-- **Claude Code or Claude Desktop**
-
-The terminal is **PowerShell** on Windows (search the Start menu) and **Terminal** on Mac.
-
-## Download
-
-**[⬇ Download Parlez! beta (zip file)](https://github.com/AnotherPerspective/Parlez/releases/latest/download/Parlez-beta.zip)**
-
-The zip holds the package `parlez-0.1.0.tgz`, the two step-by-step guides (Windows and Mac, in Italian) and a `LEGGIMI.txt` file.
-
-**Checking the file (optional).** To make sure the file was not changed on the way, compare its fingerprint with this one:
-
-```text
-8687b74d67b123ff33d9f1b222fbe1e2a44543907e8c2b14a7965db189f44042
-```
-
-- Windows (PowerShell): `certutil -hashfile parlez-0.1.0.tgz SHA256`
-- Mac (Terminal): `shasum -a 256 parlez-0.1.0.tgz`
-
-## Install in three steps
-
-**1. Unzip.** Open a terminal **inside the unzipped folder**, the one that holds `parlez-0.1.0.tgz`.
-
-**2. Install the package.**
-
-```bash
-npm install -g ./parlez-0.1.0.tgz
-```
-
-Internet is needed **only now**, to download two libraries. After that Parlez! never connects to the internet.
-
-**3. Set up After Effects.**
-
-```bash
-parlez setup --lang en
-```
-
-It finds After Effects and installs the **startup script** (a small agent that stays inside After Effects and receives Claude's requests) and the **Parlez! panel**, only in your user's folders. At the end it prints the command that connects Claude.
-
-Then:
-
-- **turn on one checkbox by hand in After Effects** (no program can do it for you): **Edit → Preferences → Scripting & Expressions → "Allow Scripts to Write Files and Access Network"** → OK. On Mac: **After Effects → Settings → Scripting & Expressions**;
-- **restart After Effects**;
-- open **Window → Parlez!** and switch it **ON**;
-- check everything: `parlez doctor --lang en`. It **changes nothing**. No "TO DO" line means you are ready.
-
-The detailed step-by-step guides are in Italian: [CHECKLIST-WINDOWS.md](CHECKLIST-WINDOWS.md) · [CHECKLIST-MAC.md](CHECKLIST-MAC.md).
-
-## Connect to Claude
-
-**Claude Code:** paste the `claude mcp add …` line that `parlez setup` printed. Short form:
-
-```bash
-claude mcp add parlez -e AE_MCP_PULL_ONLY=1 -- parlez
-```
-
-**Claude Desktop:** `parlez setup` also prints a block to paste into Claude Desktop's configuration file (Settings → Developer → Edit Config) and tells you where. Then quit Claude Desktop completely and reopen it.
-
-First test, with After Effects open and the panel ON: "Using Parlez!, tell me the After Effects version."
-
-## What Claude sees
-
-What Claude reads from the project (names of comps and layers, text, file paths, frames) goes to the Claude service you use. For NDA work or unreleased client material, check your Claude plan's data terms first.
-
-## If something goes wrong
-
-Timeouts: is After Effects open, the panel ON, the scripting checkbox on (and the Preferences window closed with OK), and no dialog open (sometimes hidden behind the main window)? Then run `parlez doctor`. After an After Effects or Parlez! update, run `parlez setup` again.
-
-Still stuck? Write to **anthonyfesce@anotherperspectivepictures.com** with answers to the six questions above (remove client names and private paths): computer and versions; did the install work (paste `parlez doctor`); what you asked Claude; what happened vs. what you expected; panel state, undo and confirmation behaviour; usefulness from 1 to 5. "Everything works" is useful to know too.
-
-## Credits and trademarks
-
-Parlez! builds on work by others, released under the MIT License. Thank you.
-
-- **[mcp-aftereffects](https://github.com/kumoproductions/mcp-aftereffects)** by kumo.productions, Inc. — Copyright (c) 2026 kumo.productions, Inc. (MIT License). Parlez! is a fork of this project: the engine that talks to After Effects comes from here.
-- Further ideas and MIT-licensed code come from **After-Effects-mcp-pro** (Mohammad Malkawi) and **after-effects-mcp** (Ishant Kohar). Their copyright notices and the full license texts are inside the package, in `THIRD_PARTY_NOTICES.md`.
-
-**"Parlez! for Adobe® After Effects®".** Adobe and After Effects are trademarks of Adobe Inc. Parlez! is an independent project, not affiliated with, endorsed by or sponsored by Adobe.
-
-## License
-
-**Free of charge.** The package includes MIT-licensed components, with their notices. Parlez!'s own source code is not published at this stage.
-
-© 2026 Another Perspective Pictures, Milan.
+© 2026 Another Perspective Pictures SRL, Milano, per le parti originali di Parlez!. I componenti di terzi restano dei rispettivi autori, con le loro licenze.

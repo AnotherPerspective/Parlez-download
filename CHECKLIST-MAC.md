@@ -10,7 +10,7 @@ Ci vogliono circa 30–40 minuti.
 
 ## Prima di cominciare
 
-- Ti serve: un Mac con **After Effects 2024, 2025 o 2026** già aperto almeno una volta, **Claude Code** oppure **Claude Desktop**, e lo **zip scaricato dal sito** (dentro c'è il file `parlez-0.1.0.tgz`). Scompatta lo zip con doppio clic: ottieni una cartella con dentro `parlez-0.1.0.tgz`. In questa guida si suppone che sia in **Download**; se l'hai messo altrove, cambia i percorsi.
+- Ti serve: un Mac con **After Effects 2024, 2025 o 2026** già aperto almeno una volta, **Claude Code** oppure **Claude Desktop**, e lo **zip scaricato dal sito** (dentro c'è il file `parlez-0.1.1.tgz`). Scompatta lo zip con doppio clic: ottieni una cartella con dentro `parlez-0.1.1.tgz`. In questa guida si suppone che sia in **Download**; se l'hai messo altrove, cambia i percorsi.
 - Lavora su una **copia** di un progetto, mai sul lavoro di un cliente.
 - Il **Terminale** è in Applicazioni → Utility → Terminale. Ogni comando qui sotto va incollato lì.
 - Quando un percorso contiene spazi o `!` (per esempio `Parlez!.jsx`) è scritto tra apici singoli `'…'`: lasciali, servono.
@@ -62,7 +62,7 @@ source ~/.zprofile
 **Comando**
 
 ```bash
-shasum -a 256 ~/Downloads/parlez-0.1.0.tgz
+shasum -a 256 ~/Downloads/parlez-0.1.1.tgz
 ```
 
 **Cosa devi vedere**: una lunga sequenza di lettere e numeri. Deve essere **uguale** a quella scritta nel `README.md` della pagina di download (sezione «Scarica»).
@@ -78,7 +78,7 @@ cd ~/Downloads
 ```
 
 ```bash
-npm install -g ./parlez-0.1.0.tgz
+npm install -g ./parlez-0.1.1.tgz
 ```
 
 ```bash
@@ -168,7 +168,7 @@ parlez doctor
 
 In After Effects apri il menu **Finestra**: in fondo deve esserci **Parlez!**. Cliccalo.
 
-**Cosa devi vedere**: un pannello con un riquadro colorato e il bottone **Accendi**. Premi **Accendi**: il riquadro deve diventare verde. Prova anche a trascinarlo e agganciarlo vicino agli altri pannelli.
+**Cosa devi vedere**: un pannello con un grande bottone **OFF** (rosso). Premilo: deve diventare **ON** e il riquadro verde. Prova anche a trascinarlo e agganciarlo vicino agli altri pannelli.
 
 **Se non va**:
 
