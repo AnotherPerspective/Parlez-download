@@ -1,3 +1,8 @@
+> [!NOTE]
+> **Parlez! now lives in one place: code, downloads and guides are at [github.com/AnotherPerspective/Parlez](https://github.com/AnotherPerspective/Parlez).** This repository stays only so that older links keep working.
+>
+> **Parlez! ora sta in un posto solo:** codice, download e guide sono su [github.com/AnotherPerspective/Parlez](https://github.com/AnotherPerspective/Parlez). Questo repository resta solo perché i link vecchi continuino a funzionare.
+
 <a id="english"></a>
 
 # Parlez! for Adobe® After Effects® — Beta download
@@ -32,14 +37,14 @@ The terminal is **PowerShell** on Windows (search the Start menu) and **Terminal
 
 ## Download
 
-**[⬇ Download Parlez! beta (zip file)](https://github.com/AnotherPerspective/Parlez-download/releases/latest/download/Parlez-beta.zip)**
+**[⬇ Download Parlez! beta (zip file)](https://github.com/AnotherPerspective/Parlez/releases/latest/download/Parlez-beta.zip)**
 
 The zip holds the package `parlez-0.1.1.tgz`, the two step-by-step guides (Windows and Mac, in Italian) and a `LEGGIMI.txt` file.
 
 **Checking the file (optional).** To make sure the file was not changed on the way, compare its fingerprint with this one:
 
 ```text
-42a82d54ca51bbdf034526994f6cd44745d2015ad483c7cbe2c92e64d9337dd2
+20924bdbf6d5fa63324c10644d3c59c8d920c8484bde41a73c2aef956239b70f
 ```
 
 - Windows (PowerShell): `certutil -hashfile parlez-0.1.1.tgz SHA256`
@@ -149,14 +154,14 @@ Il terminale su Windows è **PowerShell** (cercalo nel menu Start). Sul Mac è *
 
 ## Scarica
 
-**[⬇ Scarica Parlez! beta (file zip)](https://github.com/AnotherPerspective/Parlez-download/releases/latest/download/Parlez-beta.zip)**
+**[⬇ Scarica Parlez! beta (file zip)](https://github.com/AnotherPerspective/Parlez/releases/latest/download/Parlez-beta.zip)**
 
 Dentro lo zip trovi il pacchetto `parlez-0.1.1.tgz`, le due guide passo passo (Windows e Mac) e un file `LEGGIMI.txt`.
 
 **Controllo del file (facoltativo).** Se vuoi essere sicuro che il file non sia stato cambiato, confronta la sua impronta con questa:
 
 ```text
-42a82d54ca51bbdf034526994f6cd44745d2015ad483c7cbe2c92e64d9337dd2
+20924bdbf6d5fa63324c10644d3c59c8d920c8484bde41a73c2aef956239b70f
 ```
 
 - Windows (PowerShell): `certutil -hashfile parlez-0.1.1.tgz SHA256`
